@@ -12,7 +12,7 @@ using namespace std;
 #define all(x) x.begin(),x.end()
 #define rall(x) x.rbegin(),x.rend()
 #define intd long double
-
+#define maxval(x) *max_element(x.begin(),x.end())
 //------------vector------------------
 #define vi vector<int>
 #define vp vector<pair<int,int>>
@@ -35,25 +35,19 @@ using namespace std;
 
 #define lowerBound(x,y) lower_bound(all(x),y) 
 #define upperBound(x,y) upper_bound(all(x),y) 
-template<typename T>
 
 int mod(int a, int m) {
     return ((a % m) + m) % m;
 }
 
+template<typename T>
 vector<T> get_prefix(const vector<T>& a) {
-    int n = (int)a.size() - 1;   // because 1-based
-    vector<T> pref(n + 1, 0);
-    for (int i = 1; i <= n; i++) {
-        pref[i] = pref[i - 1] + a[i];
-    }
-    return pref;
+    int n = (int)a.size() - 1; for (int i = 1; i <= n; i++) {pref[i] = pref[i - 1] + a[i];}return pref;
 }
 
 
 string multiply(string a, string b) {
-    if (a == "0" || b == "0") return "0";
-    vector<int> res(a.size() + b.size(), 0);
+    if (a == "0" || b == "0") return "0";    vector<int> res(a.size() + b.size(), 0);
     for (int i = a.size() - 1; i >= 0; i--) {for (int j = b.size() - 1; j >= 0; j--) {int p = (a[i] - '0') * (b[j] - '0');
             int sum = p + res[i + j + 1];res[i + j + 1] = sum % 10;res[i + j] += sum / 10;}}
     string s = "";for (int x : res) if (!(s.empty() && x == 0)) s += (x + '0');return s;
@@ -61,39 +55,22 @@ string multiply(string a, string b) {
 
 
 string add(string a, string b) {
-    string res = "";
-    int i = a.size() - 1, j = b.size() - 1, carry = 0;
-    while (i >= 0 || j >= 0 || carry) {
-        int sum = carry + (i >= 0 ? a[i--] - '0' : 0) + (j >= 0 ? b[j--] - '0' : 0);
-        res += (sum % 10 + '0');
-        carry = sum / 10;
-    }
-    reverse(res.begin(), res.end());
-    return res;
+    string res = "";    int i = a.size() - 1, j = b.size() - 1, carry = 0;
+    while (i >= 0 || j >= 0 || carry) {        int sum = carry + (i >= 0 ? a[i--] - '0' : 0) + (j >= 0 ? b[j--] - '0' : 0);        res += (sum % 10 + '0');        carry = sum / 10;}
+    reverse(res.begin(), res.end());return res;
 }
 
 string sub(string a, string b) {
-    string res = "";
-    int i = a.size() - 1, j = b.size() - 1, borrow = 0;
-    while (i >= 0) {
-        int val1 = a[i--] - '0';
-        int val2 = (j >= 0 ? b[j--] - '0' : 0);
+    string res = "";    int i = a.size() - 1, j = b.size() - 1, borrow = 0;
+    while (i >= 0) {        int val1 = a[i--] - '0';        int val2 = (j >= 0 ? b[j--] - '0' : 0);
         int diff = val1 - val2 - borrow;if (diff < 0) {diff += 10;borrow = 1;} else borrow = 0;res += (diff + '0');
-    }while (res.size() > 1 && res.back() == '0') res.pop_back(); // Remove leading zeros
-    reverse(res.begin(), res.end());
-    return res;
+    }while (res.size() > 1 && res.back() == '0') res.pop_back(); reverse(res.begin(), res.end());return res;
 }
 
 
 template<typename T>
 vector<T> get_suffix(const vector<T>& a) {
-    int n = (int)a.size() - 1;
-    vector<T> suff(n + 2, 0);   // extra space for suff[n+1] = 0
-    for (int i = n; i >= 1; i--) {
-        suff[i] = suff[i + 1] + a[i];
-    }
-    return suff;
-}
+    int n = (int)a.size() - 1;vector<T> suff(n + 2, 0);for (int i = n; i >= 1; i--) {        suff[i] = suff[i + 1] + a[i];    }    return suff;}
 
 
 int power(int a, int b) {int res = 1;while (b > 0) {if (b & 1) res *= a;a *= a;b >>= 1;}return res;}
@@ -137,4 +114,5 @@ while(t--){
 	solve();
 }
 }
+
 
