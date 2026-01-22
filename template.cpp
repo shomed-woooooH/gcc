@@ -37,6 +37,10 @@ using namespace std;
 #define upperBound(x,y) upper_bound(all(x),y) 
 template<typename T>
 
+int mod(int a, int m) {
+    return ((a % m) + m) % m;
+}
+
 vector<T> get_prefix(const vector<T>& a) {
     int n = (int)a.size() - 1;   // because 1-based
     vector<T> pref(n + 1, 0);
@@ -133,3 +137,4 @@ while(t--){
 	solve();
 }
 }
+
